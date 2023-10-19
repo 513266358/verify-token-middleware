@@ -5,9 +5,8 @@ namespace tokenmid;
 class index
 {
 
-    public function index($sql_data)
+    public function index($sql_data,$app_id)
     {
-        $app_id = '';
         // 创建连接
         $conn = new \mysqli($sql_data['DB_HOST'], $sql_data['DB_USERNAME'], $sql_data['DB_PASSWORD'], $sql_data['DB_DATABASE']);
         // 检测连接
