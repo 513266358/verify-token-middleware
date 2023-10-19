@@ -5,24 +5,36 @@ namespace Tokenmid\TokenMidllerware;
 class GetUserFromApp
 {
 
-    public function get($sql_data,$app_id)
+    public function get($sql_data, $app_id)
     {
+        if (!$app_id) {
+            return '差数错误';
+        }
         // 创建连接
-        $conn = new \mysqli($sql_data['DB_HOST'], $sql_data['DB_USERNAME'], $sql_data['DB_PASSWORD'], $sql_data['DB_DATABASE']);
-        // 检测连接
-        if ($conn->connect_error) {
-            return ['连接失败' . $conn->connect_error];
-        }
-        $sql = 'select * from `open_platform` left join `sys_user` on `sys_user`.`USER_SOURCE` = `open_platform`.`source` where `open_platform`.`app_id`="'.$app_id.'"';
-        $result = $conn->query($sql);
-        $conn->close();
+        $type = 'mysql';  // 数据库为mysql数据库
+        $hostname = $sql_data['DB_HOST'];  // 数据库ip
+        $dbname = $sql_data['DB_DATABASE'];  // 操纵的数据库名
+        $username = $sql_data['DB_USERNAME'];;  // mysql 的账户
+        $password = $sql_data['DB_PASSWORD']; // mysql 的密码
+        $dsn = "$type:dbname=$dbname;host=$hostname";
+        try {
+            $pdo = new \PDO($dsn, $username, $password, [
+                // 开启异常模式
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+            ]);
 
-        if ($result->num_rows > 0) {
-            // 输出数据
-            return $result;
-        } else {
-            return [];
-        }
 
+        } catch (\PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+        $open_platform_sql = 'select * from open_platform where app_id=?';
+        $open = $pdo->prepare($open_platform_sql);
+        $open->bindParam(1, $app_id);
+
+        $open->execute();
+        $open_platform = $open->fetch();
+        $sql = 'select * from `sys_user` where `USER_SOURCE`='.$open_platform['source'] ;
+        $result = $pdo->query($sql)->fetchAll();
+        return $result;
     }
 }
