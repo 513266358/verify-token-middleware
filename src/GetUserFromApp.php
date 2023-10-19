@@ -10,6 +10,7 @@ class GetUserFromApp
         if (!$app_id) {
             return '差数错误';
         }
+        $app_id = htmlspecialchars(addslashes($app_id));
         // 创建连接
         $type = 'mysql';  // 数据库为mysql数据库
         $hostname = $sql_data['DB_HOST'];  // 数据库ip
