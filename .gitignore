@@ -21,3 +21,8 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+.idea/.gitignore
+.idea/modules.xml
+.idea/php.xml
+.idea/vcs.xml
+.idea/verify_token_midllerware.iml

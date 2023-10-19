@@ -1,0 +1,22 @@
+{
+    "name": "tokenmid/token-midllerware",
+    "description": "token中间件",
+    "type": "library",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=7.0",
+        "ext-mysqli": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tokenmid\\TokenMidllerware\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "yexiaoping",
+            "email": "demonyxp@vip.qq.com"
+        }
+    ]
+}
