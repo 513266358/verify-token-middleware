@@ -2,12 +2,13 @@
 
 namespace Tokenmid\TokenMidllerware;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class GetUserFromApp
 {
 
-    public function get($app_id)
+    public function getAllUserInfoWithAppId($app_id)
     {
         if (!$app_id) {
             return '差数错误';
@@ -17,7 +18,7 @@ class GetUserFromApp
         if (!$open_platform){
             return 'parameter error';
         }
-        $result =  DB::table('sys_user')->where('USER_SOURCE',$open_platform)->get();
+        $result = User::query()->where('USER_SOURCE',$open_platform)->get();
         return $result;
     }
 }
