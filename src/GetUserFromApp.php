@@ -42,7 +42,7 @@ class GetUserFromApp
         if (!$open_platform){
             return 'parameter error';
         }
-        $result = DB::table('sys_user')->where('USER_SOURCE',$open_platform)->get();
+        $result =  DB::table('sys_user')->where('USER_SOURCE',$open_platform)->get();
         return $result;
     }
 }
