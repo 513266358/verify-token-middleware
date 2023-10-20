@@ -38,7 +38,7 @@ class GetUserFromApp
 //        }
 //        $sql = 'select * from `sys_user` where `USER_SOURCE`=' . $open_platform['source'];
 //        $result = $pdo->query($sql)->fetchAll();
-        $open_platform = DB::table('open_platform')->where('app_id',$app_id)->find('source');
+        $open_platform = DB::table('open_platform')->where('app_id',$app_id)->value('source');
         if (!$open_platform){
             return 'parameter error';
         }
