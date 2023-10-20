@@ -9,7 +9,6 @@ class GetUser
 {
     public function handle(Request $request, \Closure $next)
     {
-
         $user = \JWTAuth::parseToken()->authenticate();
         if ($user == false) {
             return ApiResponse::defineResponse(401,'未登录',[$user],200);
