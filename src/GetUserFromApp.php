@@ -23,18 +23,18 @@ class GetUserFromApp
                 // 开启异常模式
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
             ]);
-
-
         } catch (\PDOException $e) {
             return 'Connection failed: ' . $e->getMessage();
         }
         $open_platform_sql = 'select * from open_platform where app_id=?';
         $open = $pdo->prepare($open_platform_sql);
         $open->bindParam(1, $app_id);
-
         $open->execute();
         $open_platform = $open->fetch();
-        $sql = 'select * from `sys_user` where `USER_SOURCE`='.$open_platform['source'] ;
+        if ($open->rowCount() <= 0) {
+            return 'parameter error';
+        }
+        $sql = 'select * from `sys_user` where `USER_SOURCE`=' . $open_platform['source'];
         $result = $pdo->query($sql)->fetchAll();
         return $result;
     }
