@@ -14,14 +14,8 @@ class GetUser
             return ApiResponse::defineResponse(401, '未登录', [], 200);
         }
         $getObj = new GetUserFromApp();
-        $env = [
-            'DB_HOST' => env('DB_HOST'),
-            'DB_USERNAME' => env('DB_USERNAME'),
-            'DB_PASSWORD' => env('DB_PASSWORD'),
-            'DB_DATABASE' => env('DB_DATABASE'),
-        ];
         $app_id = $userInfo['openid'];
-        $appUser = $getObj->get($env, $app_id);
+        $appUser = $getObj->get($app_id);
         $request->attributes->add(['appUser' => $appUser]);
         return $next($request);
     }
