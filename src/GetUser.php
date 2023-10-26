@@ -2,7 +2,7 @@
 
 namespace Tokenmid\TokenMidllerware;
 
-use App\Mapping\Response\ApiResponse;
+use Tokenmid\TokenMidllerware\Response\ApiResponse;
 use Illuminate\Http\Request;
 
 class GetUser
