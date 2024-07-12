@@ -34,6 +34,7 @@ class GetUser
         $userInfo['is_distribution']             = $user->is_distribution;
         $userInfo['distribution_time']           = $user->distribution_time;
         $userInfo['pid']                         = $user->pid;
+        $userInfo["add_time"]                    = $user->add_time;
         $userInfo['is_pid']                      = $user->is_pid;
         $userInfo['distribution_is_place_order'] = $user->distribution_is_place_order;
         $request->attributes->add(['userInfo' => $userInfo]);
