@@ -17,7 +17,9 @@ class GetUser
         $data = $request->all();
         array_walk_recursive(
             $data, function (&$input) {
-            $input = htmlspecialchars($input, ENT_HTML5);
+                $type   = gettype($input);
+                if($type != "integer")
+                    $input = htmlspecialchars($input, ENT_HTML5);
         }
         );
         $request->merge($data);
