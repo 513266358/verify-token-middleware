@@ -14,6 +14,10 @@ class GetUser
             return ApiResponse::defineResponse(401, '未登录', [$user], 200);
         }
 
+        if ($user->status != 1) {
+            throw new \HttpException("该账户已禁用，请联系客服", 500);
+        }
+
         $data = $request->all();
         array_walk_recursive(
             $data, function (&$input) {
