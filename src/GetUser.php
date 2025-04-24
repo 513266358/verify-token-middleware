@@ -13,10 +13,14 @@ class GetUser
         if ($user == false) {
             return ApiResponse::defineResponse(401, '未登录', [$user], 200);
         }
-
-        if ($user->status != 1) {
-            throw new \HttpException("该账户已禁用，请联系客服", 500);
+        
+        if ($user['status'] != 1 && $user['status'] == 3) {
+            throw new \HttpException("该账户【{$user['user_name']}】已禁用;用户ID【{$user['id']}】，请联系客服", 500);
         }
+        if ($user['status'] != 1 && $user['status'] == 4) {
+            throw new \HttpException("该账户【{$user['user_name']}】已注销;用户ID【{$user['id']}】", 500);
+        }
+
 
         $data = $request->all();
         array_walk_recursive(
