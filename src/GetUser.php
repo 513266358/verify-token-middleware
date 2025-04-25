@@ -15,10 +15,13 @@ class GetUser
         }
         
         if ($user['status'] != 1 && $user['status'] == 3) {
-            throw new \HttpException("该账户【{$user['user_name']}】已禁用;用户ID【{$user['id']}】，请联系客服", 500);
+            throw new \HttpException("该账户已禁用;用户ID【{$user['id']}】，请联系客服", 500);
         }
         if ($user['status'] != 1 && $user['status'] == 4) {
-            throw new \HttpException("该账户【{$user['user_name']}】已注销;用户ID【{$user['id']}】", 500);
+            throw new \HttpException("该账户已注销;用户ID【{$user['id']}】", 500);
+        }
+        if ($user['status'] != 1) {
+            throw new \HttpException("该账户已禁用，请联系客服", 500);
         }
 
 
