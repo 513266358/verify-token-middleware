@@ -14,10 +14,10 @@ class GetUser
             return ApiResponse::defineResponse(401, '未登录', [$user], 200);
         }
         
-        if ($user['status'] != 1 && $user['status'] == 3) {
+        if ($user['status'] == 3) {
             throw new \HttpException("该账户已禁用;用户ID【{$user['id']}】，请联系客服", 500);
         }
-        if ($user['status'] != 1 && $user['status'] == 4) {
+        if ($user['status'] == 4) {
             throw new \HttpException("该账户已注销;用户ID【{$user['id']}】", 500);
         }
         if ($user['status'] != 1) {
